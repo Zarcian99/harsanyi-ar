@@ -1,0 +1,51 @@
+seeds = [0, 1, 2, 3, 4]; fidelity = R^2 to the model (logit in classification, mean over the class logits on Wine)
+
+== california, XGBoost ==
+    seed 0: dividends only 0.9579   surrogate test 0.9885   surrogate fit 0.9882   (n_fit = 4000, K = 20)
+    seed 1: dividends only 0.9564   surrogate test 0.9867   surrogate fit 0.9852   (n_fit = 4000, K = 20)
+    seed 2: dividends only 0.9631   surrogate test 0.9897   surrogate fit 0.9887   (n_fit = 4000, K = 20)
+    seed 3: dividends only 0.9630   surrogate test 0.9881   surrogate fit 0.9875   (n_fit = 4000, K = 20)
+    seed 4: dividends only 0.9480   surrogate test 0.9886   surrogate fit 0.9883   (n_fit = 4000, K = 20)
+
+== cancer, XGBoost ==
+    seed 0: dividends only 0.9894   surrogate test 0.9973   surrogate fit 0.9972   (n_fit = 455, K = 10)
+    seed 1: dividends only 0.9899   surrogate test 0.9958   surrogate fit 0.9953   (n_fit = 455, K = 10)
+    seed 2: dividends only 0.9929   surrogate test 0.9963   surrogate fit 0.9960   (n_fit = 455, K = 10)
+    seed 3: dividends only 0.9878   surrogate test 0.9957   surrogate fit 0.9950   (n_fit = 455, K = 10)
+    seed 4: dividends only 0.9936   surrogate test 0.9968   surrogate fit 0.9966   (n_fit = 455, K = 10)
+
+== wine, XGBoost ==
+    seed 0: dividends only 1.0000   surrogate test 1.0000   surrogate fit 1.0000   (n_fit = 142, K = 7)
+    seed 1: dividends only 1.0000   surrogate test 1.0000   surrogate fit 1.0000   (n_fit = 142, K = 7)
+    seed 2: dividends only 1.0000   surrogate test 1.0000   surrogate fit 1.0000   (n_fit = 142, K = 7)
+    seed 3: dividends only 1.0000   surrogate test 1.0000   surrogate fit 1.0000   (n_fit = 142, K = 7)
+    seed 4: dividends only 1.0000   surrogate test 1.0000   surrogate fit 1.0000   (n_fit = 142, K = 7)
+
+== california, network ==
+    seed 0: dividends only 0.8871   surrogate test 0.9858   surrogate fit 0.9886   (n_fit = 4000, K = 20)
+    seed 1: dividends only 0.8667   surrogate test 0.9806   surrogate fit 0.9859   (n_fit = 4000, K = 20)
+    seed 2: dividends only 0.8809   surrogate test 0.9878   surrogate fit 0.9904   (n_fit = 4000, K = 20)
+    seed 3: dividends only 0.9013   surrogate test 0.9890   surrogate fit 0.9924   (n_fit = 4000, K = 20)
+    seed 4: dividends only 0.8530   surrogate test 0.9859   surrogate fit 0.9900   (n_fit = 4000, K = 20)
+
+== cancer, network ==
+    seed 0: dividends only 0.9918   surrogate test 0.9995   surrogate fit 0.9996   (n_fit = 455, K = 10)
+    seed 1: dividends only 0.9967   surrogate test 0.9998   surrogate fit 0.9997   (n_fit = 455, K = 10)
+    seed 2: dividends only 0.9866   surrogate test 0.9994   surrogate fit 0.9996   (n_fit = 455, K = 10)
+    seed 3: dividends only 0.9880   surrogate test 0.9995   surrogate fit 0.9995   (n_fit = 455, K = 10)
+    seed 4: dividends only 0.9951   surrogate test 0.9996   surrogate fit 0.9997   (n_fit = 455, K = 10)
+
+== wine, network ==
+    seed 0: dividends only 0.9979   surrogate test 0.9997   surrogate fit 0.9997   (n_fit = 142, K = 7)
+    seed 1: dividends only 0.9980   surrogate test 0.9998   surrogate fit 0.9997   (n_fit = 142, K = 7)
+    seed 2: dividends only 0.9977   surrogate test 0.9997   surrogate fit 0.9997   (n_fit = 142, K = 7)
+    seed 3: dividends only 0.9972   surrogate test 0.9996   surrogate fit 0.9996   (n_fit = 142, K = 7)
+    seed 4: dividends only 0.9982   surrogate test 0.9998   surrogate fit 0.9998   (n_fit = 142, K = 7)
+
+                        dividends only (test)   surrogate (test)   surrogate (fit)
+california, XGBoost            0.958 +- 0.006     0.988 +- 0.001    0.988 +- 0.001
+cancer, XGBoost                0.991 +- 0.002     0.996 +- 0.001    0.996 +- 0.001
+wine, XGBoost                  1.000 +- 0.000     1.000 +- 0.000    1.000 +- 0.000
+california, network            0.878 +- 0.017     0.986 +- 0.003    0.989 +- 0.002
+cancer, network                0.992 +- 0.004     1.000 +- 0.000    1.000 +- 0.000
+wine, network                  0.998 +- 0.000     1.000 +- 0.000    1.000 +- 0.000

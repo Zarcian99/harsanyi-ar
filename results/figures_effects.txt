@@ -1,0 +1,14 @@
+network R2 = 0.748   fidelity = 0.986
+XGBoost R2 = 0.827   fidelity = 0.989
+
+Local attribution, row 15683 of california.csv
+  f(0) = 1.133   kappa = +0.0625   intercept = 1.196
+  surrogate prediction = 4.790   XGBoost prediction = 4.853   sum of contributions = +3.594
+  Longitude   order 1 = +2.427   order 2 = -0.371   Shapley = +2.056
+  AveOccup    order 1 = +1.473   order 2 = -0.086   Shapley = +1.388
+  Latitude    order 1 = -0.105   order 2 = -0.371   Shapley = -0.476
+  MedInc      order 1 = +0.724   order 2 = -0.339   Shapley = +0.385
+  HouseAge    order 1 = +0.250   order 2 = -0.000   Shapley = +0.250
+  Population  order 1 = -0.014   order 2 = -0.079   Shapley = -0.093
+  AveRooms    order 1 = +0.256   order 2 = -0.169   Shapley = +0.087
+  AveBedrms   order 1 = -0.011   order 2 = +0.009   Shapley = -0.002

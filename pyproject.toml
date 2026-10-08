@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "harsanyi-ar"
+version = "0.1.0"
+description = "Order-k surrogate model from Harsanyi dividends and an accumulated-residual correction"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Carlos García-Fernández"}, {name = "Juan Tejada"}]
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+experiments = ["scipy", "pandas", "scikit-learn", "xgboost", "matplotlib", "torch", "interpret-core", "shapiq", "shap"]
+
+[tool.setuptools]
+packages = ["harsanyi_ar"]

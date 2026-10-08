@@ -1,0 +1,15 @@
+
+== independent ==
+function                       dividends only     kappa + dividends + AR
+pure order 2                    1.000 +- 0.000            1.000 +- 0.000
+order-3 cosine                  0.672 +- 0.028            0.931 +- 0.007
+order-3 monomial                0.000 +- 0.000           -0.003 +- 0.009
+additive + order 3              0.923 +- 0.001            0.923 +- 0.001
+softplus neural network         0.977 +- 0.001            0.996 +- 0.000
+step function                   0.751 +- 0.007            0.862 +- 0.002
+
+== correlated (rho = 0.7 pairwise) ==
+function                       dividends only     kappa + dividends + AR
+order-3 monomial                0.000 +- 0.000            0.989 +- 0.001
+additive + order 3              0.881 +- 0.002            0.999 +- 0.000
+additive + order 2              1.000 +- 0.000            1.000 +- 0.000

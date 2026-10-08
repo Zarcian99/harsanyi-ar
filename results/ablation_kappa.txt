@@ -1,0 +1,20 @@
+seeds = [0, 1, 2, 3, 4]; synthetic: 4000 fitting points, 5000 test points; California: 4000 fitting rows, test set
+function                   inputs                      kappa/sd(f)      without kappa         with kappa
+order-3 monomial           Gaussian, independent            +0.005    -0.003 +- 0.010    -0.003 +- 0.009
+order-3 monomial           Gaussian, rho = 0.7              -0.000     0.989 +- 0.001     0.989 +- 0.001
+order-3 monomial           log-normal, independent          +0.002    -0.052 +- 0.081    -0.052 +- 0.081
+order-3 monomial           log-normal, rho = 0.7            -0.000     0.828 +- 0.122     0.828 +- 0.122
+softplus neural network    Gaussian, independent            -0.056     0.993 +- 0.000     0.996 +- 0.000
+softplus neural network    Gaussian, rho = 0.7              -0.020     0.998 +- 0.000     0.999 +- 0.000
+softplus neural network    log-normal, independent          -0.016     0.999 +- 0.000     0.999 +- 0.000
+softplus neural network    log-normal, rho = 0.7            -0.009     0.995 +- 0.001     0.995 +- 0.001
+order-3 cosine             Gaussian, independent            -0.142     0.910 +- 0.009     0.931 +- 0.007
+order-3 cosine             Gaussian, rho = 0.7              -0.121     0.335 +- 0.136     0.348 +- 0.133
+order-3 cosine             log-normal, independent          -0.012     0.985 +- 0.008     0.986 +- 0.008
+order-3 cosine             log-normal, rho = 0.7            -0.029     0.312 +- 0.138     0.312 +- 0.138
+even order 3               Gaussian, independent            +0.262     0.508 +- 0.082     0.574 +- 0.080
+even order 3               Gaussian, rho = 0.7              -0.006     0.917 +- 0.028     0.917 +- 0.028
+even order 3               log-normal, independent          +1.416  -742.640 +- 1357.654  -734.752 +- 1342.200
+even order 3               log-normal, rho = 0.7            -0.011     0.330 +- 0.593     0.330 +- 0.592
+California, XGBoost        data                             +0.025     0.987 +- 0.002     0.988 +- 0.001
+California, network        data                             +0.025     0.985 +- 0.003     0.986 +- 0.003

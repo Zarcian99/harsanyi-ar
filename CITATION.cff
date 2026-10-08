@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the paper."
+title: "harsanyi-ar: an order-k surrogate model from Harsanyi dividends and an accumulated-residual correction"
+authors:
+  - family-names: "García-Fernández"
+    given-names: "Carlos"
+    affiliation: "Universidad Complutense de Madrid"
+  - family-names: "Tejada"
+    given-names: "Juan"
+    affiliation: "Universidad Complutense de Madrid"
+version: 0.1.0
+date-released: "2026-10-08"
+preferred-citation:
+  type: article
+  title: "Local and Global Explainability of a Machine Learning Model through an Order-k Surrogate Model"
+  authors:
+    - family-names: "García-Fernández"
+      given-names: "Carlos"
+    - family-names: "Tejada"
+      given-names: "Juan"
+  year: 2026

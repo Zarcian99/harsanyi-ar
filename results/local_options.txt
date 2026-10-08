@@ -1,0 +1,6 @@
+seeds = [0, 1, 2, 3, 4]; fidelity on the test set
+                        1. interpolated  2. exact dividends
+california, XGBoost      0.984 +- 0.001      0.988 +- 0.001
+california, network      0.988 +- 0.002      0.986 +- 0.003
+cancer, XGBoost          0.993 +- 0.000      0.996 +- 0.001
+cancer, network          0.993 +- 0.001      1.000 +- 0.000

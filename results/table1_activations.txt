@@ -1,0 +1,27 @@
+seeds = [0, 1, 2, 3, 4]
+
+== california ==
+  softplus  fidelity = 0.986 +- 0.003   network R2 = 0.742 +- 0.003
+  sigmoid   fidelity = 0.967 +- 0.006   network R2 = 0.742 +- 0.003
+  tanh      fidelity = 0.889 +- 0.017   network R2 = 0.784 +- 0.001
+  silu      fidelity = 0.740 +- 0.079   network R2 = 0.780 +- 0.003
+  mish      fidelity = 0.749 +- 0.075   network R2 = 0.782 +- 0.003
+  gelu      fidelity = 0.690 +- 0.070   network R2 = 0.787 +- 0.003
+seeds = [0, 1, 2, 3, 4]
+
+== cancer ==
+  softplus  fidelity = 1.000 +- 0.000   network AUC = 0.981 +- 0.001
+  sigmoid   fidelity = 0.991 +- 0.002   network AUC = 0.980 +- 0.001
+  tanh      fidelity = 0.972 +- 0.005   network AUC = 0.985 +- 0.001
+  silu      fidelity = 0.993 +- 0.005   network AUC = 0.982 +- 0.002
+  mish      fidelity = 0.991 +- 0.003   network AUC = 0.982 +- 0.002
+  gelu      fidelity = 0.984 +- 0.004   network AUC = 0.982 +- 0.002
+seeds = [0, 1, 2, 3, 4]
+
+== wine ==
+  softplus  fidelity = 1.000 +- 0.000   network accuracy = 1.000 +- 0.000
+  sigmoid   fidelity = 0.973 +- 0.001   network accuracy = 1.000 +- 0.000
+  tanh      fidelity = 0.969 +- 0.001   network accuracy = 1.000 +- 0.000
+  silu      fidelity = 0.995 +- 0.001   network accuracy = 1.000 +- 0.000
+  mish      fidelity = 0.994 +- 0.001   network accuracy = 1.000 +- 0.000
+  gelu      fidelity = 0.990 +- 0.001   network accuracy = 1.000 +- 0.000

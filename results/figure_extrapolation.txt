@@ -1,0 +1,1 @@
+conditional mean = 2.550   conditional sd = 0.527   distance = 4.84 sd

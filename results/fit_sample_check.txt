@@ -1,0 +1,3 @@
+seeds = [0, 1, 2, 3, 4]; base model trained on 12512 rows; surrogate on 4000 rows
+  XGBoost  model R2 = 0.825   fidelity, surrogate fitted on held-out rows = 0.988 +- 0.002   on rows used to train the model = 0.988 +- 0.001
+  network  model R2 = 0.739   fidelity, surrogate fitted on held-out rows = 0.984 +- 0.005   on rows used to train the model = 0.986 +- 0.003

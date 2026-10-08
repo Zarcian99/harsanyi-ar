@@ -1,0 +1,12 @@
+seeds = [0, 1, 2, 3, 4]
+
+== Transparent baselines (single fit) ==
+  California  linear                 R2       = 0.594
+  California  degree-2 polynomial    R2       = 0.625
+  California  GAM with splines       R2       = 0.698
+  Cancer      logistic               AUC      = 0.979
+  Wine        logistic               accuracy = 1.000   log-loss = 0.024
+  Cancer      degree-2 polynomial    AUC      = 0.989
+  Wine        degree-2 polynomial    accuracy = 1.000   log-loss = 0.012
+  Cancer      GAM with splines       AUC      = 0.980
+  Wine        GAM with splines       accuracy = 1.000   log-loss = 0.084

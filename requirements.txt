@@ -1,0 +1,11 @@
+# Versions used to produce results/ (Python 3.12). The package core needs numpy only.
+numpy==2.4.4
+scipy==1.17.1
+pandas==3.0.2
+scikit-learn==1.8.0
+xgboost==3.4.1
+matplotlib==3.10.8
+torch==2.14.0            # network rows, Table 1, figures, dale_variant
+interpret-core==0.7.8    # EBM rows of Table 3 only
+shapiq==1.7.0            # timing_comparison.py only
+shap==0.52.0             # timing_comparison.py only

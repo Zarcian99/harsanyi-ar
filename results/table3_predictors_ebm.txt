@@ -1,0 +1,11 @@
+seeds = [0, 1, 2, 3, 4]
+
+== EBM (default hyperparameters) ==
+  Cancer      EBM   AUC      = 0.986
+  Wine        EBM   accuracy = 1.000   (mean over seeds [0, 1, 2, 3, 4])
+  seed 0: EBM California R2=0.8437
+  seed 1: EBM California R2=0.8448
+  seed 2: EBM California R2=0.8443
+  seed 3: EBM California R2=0.8441
+  seed 4: EBM California R2=0.8439
+  California  EBM   R2       = 0.844 +- 0.000

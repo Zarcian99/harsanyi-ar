@@ -1,0 +1,2 @@
+seeds = [0, 1, 2, 3, 4]   (cancer part of: python experiments/table3_predictors.py --rows ebm)
+  Cancer      EBM   AUC      = 0.986 +- 0.000   per seed: 0.9858 0.9864 0.9861 0.9854 0.9864
