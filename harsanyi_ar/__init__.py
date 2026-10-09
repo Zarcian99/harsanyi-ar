@@ -1,17 +1,18 @@
 """
-harsanyi_ar: order-2 interpretable surrogate of a trained model, built from Harsanyi
-dividends plus an accumulated-residual (ALE-based) correction with empirical-Bayes
-shrinkage.
+harsanyi_ar: interpretable order-k surrogate of a trained model, built from Harsanyi
+dividends plus an accumulated-residual (ALE-based) correction.
 
-    from harsanyi_ar import HarsanyiARSurrogate            # any model, numpy only
+    from harsanyi_ar import HarsanyiARSurrogate            # order 2, the implementation of the paper
+    from harsanyi_ar import HarsanyiARSurrogateK           # any order k (reproduces the above at k = 2)
     from harsanyi_ar import TorchModel, MLP                # torch networks of the experiments
 """
 from .numerics import r2_score, fsum_1d, mean_1d
 from .dividends import compute_dividends, truncated_prediction, all_pairs
 from .shrinkage import estimate_tau2
 from .surrogate import HarsanyiARSurrogate
+from .order_k import HarsanyiARSurrogateK, GridFunction
 
-__all__ = ["HarsanyiARSurrogate", "TorchModel", "MLP",
+__all__ = ["HarsanyiARSurrogate", "HarsanyiARSurrogateK", "GridFunction", "TorchModel", "MLP",
            "compute_dividends", "truncated_prediction", "all_pairs", "estimate_tau2",
            "r2_score", "fsum_1d", "mean_1d"]
 

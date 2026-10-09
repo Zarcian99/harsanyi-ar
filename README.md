@@ -21,7 +21,12 @@ Every component `d_S + AR_S` vanishes at the baseline. The same components are t
 effects (as functions of `x_S`), the local attribution (evaluated at `x`) and, shared
 equally among the members of each set, the exact Shapley values of the surrogate.
 
-The implementation covers the truncation order `k = 2`, the one used throughout the paper.
+`HarsanyiARSurrogate` is the order-2 implementation used throughout the paper.
+`HarsanyiARSurrogateK(predict, baseline, order=k)` implements any truncation order `k` with
+the same steps (dividends up to order `k`, residual differences through the identity of the
+paper, `k`-dimensional quantile grids, accumulation, re-anchoring and the recursive ALE
+discount of the lower orders); at `k = 2` it reproduces the former, and the cost grows as
+`O(n d^k)` evaluations of the model.
 
 ## Layout
 
@@ -81,7 +86,7 @@ classification the surrogate decomposes the logit, one surrogate per class.
 
 ```bash
 pip install -r requirements.txt
-python tests/test_pipeline.py
+python tests/test_pipeline.py && python tests/test_order_k.py
 python experiments/table_fidelity.py          # fidelity with and without the correction (Table 1)
 python experiments/table1_activations.py      # fidelity by activation function (~25 min, 1 CPU core)
 python experiments/table2_synthetic.py        # synthetic functions (~4 min)
@@ -129,6 +134,12 @@ and on a cubic B-spline basis per feature (12 knots in regression, 8 in classifi
 with default hyperparameters.
 
 ### Tests
+
+`tests/test_order_k.py` (numpy only) checks the order-k implementation: agreement with the
+order-2 implementation at `k = 2`, exactness of `k = 3` on an order-3 function, components
+vanishing at the baseline and efficiency at `k = 3`, pseudo-orthogonality of the estimated
+operators at `k = 3` on dependent inputs, and that the corrected fidelity does not decrease
+with `k` on a function with content at every order.
 
 `tests/test_pipeline.py` (numpy only) checks: compensated summation; exactness of the
 dividends for an order-2 function; zero correction when there is no residual; components
