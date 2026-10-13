@@ -1,0 +1,42 @@
+total time on one CPU core, measured; N instances cycle through 200 test instances; one warm-up call per method
+
+== A. California, XGBoost (d = 8; budget 2064 evaluations; permutation sampling: 2 permutations, 256 evaluations) ==
+method                                                 N      seconds   status
+surrogate model (fit, then explanations)               1        3.140   measured, fit 3.14 s
+surrogate model (fit, then explanations)              10        3.141   measured, fit 3.14 s
+surrogate model (fit, then explanations)             100        3.147   measured, fit 3.14 s
+surrogate model (fit, then explanations)            1000        3.198   measured, fit 3.14 s
+surrogate model (fit, then explanations)           10000        3.937   measured, fit 3.14 s
+surrogate model (fit, then explanations)          100000       11.469   measured, fit 3.14 s
+ALE, order <= 2 (fit, then readings)                   1        0.930   measured, fit 0.93 s
+ALE, order <= 2 (fit, then readings)                  10        0.930   measured, fit 0.93 s
+ALE, order <= 2 (fit, then readings)                 100        0.931   measured, fit 0.93 s
+ALE, order <= 2 (fit, then readings)                1000        0.933   measured, fit 0.93 s
+ALE, order <= 2 (fit, then readings)               10000        0.952   measured, fit 0.93 s
+ALE, order <= 2 (fit, then readings)              100000        1.220   measured, fit 0.93 s
+Shapley-Taylor, computed exactly                       1        0.008   measured
+Shapley-Taylor, computed exactly                      10        0.078   measured
+Shapley-Taylor, computed exactly                     100        0.825   measured
+Shapley-Taylor, computed exactly                    1000        8.145   measured
+Shapley-Taylor, computed exactly                   10000       83.826   measured
+Shapley-Taylor, computed exactly                  100000      838.738   measured
+Faith-Shap, computed exactly                           1        0.004   measured
+Faith-Shap, computed exactly                          10        0.041   measured
+Faith-Shap, computed exactly                         100        0.481   measured
+Faith-Shap, computed exactly                        1000        3.187   measured
+Faith-Shap, computed exactly                       10000       32.903   measured
+Faith-Shap, computed exactly                      100000      330.942   measured
+Shapley-Taylor, permutation sampling                 all           --   budget >= 2^d: the estimator is the exact index
+Faith-Shap, sampled weighted regression              all           --   budget >= 2^d: the estimator is the exact index
+KernelSHAP                                             1        0.007   measured
+KernelSHAP                                            10        0.046   measured
+KernelSHAP                                           100        0.463   measured
+KernelSHAP                                          1000        4.837   measured
+KernelSHAP                                         10000       48.740   measured
+KernelSHAP                                        100000      490.460   measured
+TreeSHAP-IQ, Shapley-Taylor                            1        0.000   measured
+TreeSHAP-IQ, Shapley-Taylor                           10        0.002   measured
+TreeSHAP-IQ, Shapley-Taylor                          100        0.021   measured
+TreeSHAP-IQ, Shapley-Taylor                         1000        0.215   measured
+TreeSHAP-IQ, Shapley-Taylor                        10000        2.132   measured
+TreeSHAP-IQ, Shapley-Taylor                       100000       21.622   measured

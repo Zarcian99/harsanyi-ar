@@ -1,0 +1,8 @@
+total time on one CPU core, measured; N instances cycle through 200 test instances; one warm-up call per method
+
+== B. synthetic, XGBoost, d = 20 (d = 20; budget 2088 evaluations; permutation sampling: 2 permutations, 1600 evaluations) ==
+method                                                 N      seconds   status
+Shapley-Taylor, permutation sampling                   1        0.039   measured
+Shapley-Taylor, permutation sampling                  10        0.489   measured
+Shapley-Taylor, permutation sampling                 100        4.555   measured
+Shapley-Taylor, permutation sampling                1000       51.348   measured

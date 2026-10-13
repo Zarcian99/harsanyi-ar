@@ -1,0 +1,8 @@
+total time on one CPU core, measured; N instances cycle through 200 test instances; one warm-up call per method
+
+== B. synthetic, XGBoost, d = 20 (d = 20; budget 2088 evaluations; permutation sampling: 2 permutations, 1600 evaluations) ==
+method                                                 N      seconds   status
+Faith-Shap, sampled weighted regression                1        0.124   measured
+Faith-Shap, sampled weighted regression               10        1.182   measured
+Faith-Shap, sampled weighted regression              100       11.753   measured
+Faith-Shap, sampled weighted regression             1000      123.644   measured

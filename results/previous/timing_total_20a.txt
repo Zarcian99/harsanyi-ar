@@ -1,0 +1,17 @@
+total time on one CPU core, measured; N instances cycle through 200 test instances; one warm-up call per method
+
+== B. synthetic, XGBoost, d = 20 (d = 20; budget 2088 evaluations; permutation sampling: 2 permutations, 1600 evaluations) ==
+method                                                 N      seconds   status
+surrogate model (fit, then explanations)               1       21.458   measured, fit 21.45 s
+surrogate model (fit, then explanations)              10       21.467   measured, fit 21.45 s
+surrogate model (fit, then explanations)             100       21.500   measured, fit 21.45 s
+surrogate model (fit, then explanations)            1000       21.858   measured, fit 21.45 s
+surrogate model (fit, then explanations)           10000       28.153   measured, fit 21.45 s
+surrogate model (fit, then explanations)          100000       84.671   measured, fit 21.45 s
+ALE, order <= 2 (fit, then readings)                   1        6.712   measured, fit 6.70 s
+ALE, order <= 2 (fit, then readings)                  10        6.713   measured, fit 6.70 s
+ALE, order <= 2 (fit, then readings)                 100        6.714   measured, fit 6.70 s
+ALE, order <= 2 (fit, then readings)                1000        6.737   measured, fit 6.70 s
+ALE, order <= 2 (fit, then readings)               10000        6.884   measured, fit 6.70 s
+ALE, order <= 2 (fit, then readings)              100000        9.892   measured, fit 6.70 s
+Shapley-Taylor, computed exactly                       1      195.163   measured

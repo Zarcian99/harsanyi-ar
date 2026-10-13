@@ -97,9 +97,10 @@ python experiments/table3_predictors.py --rows xgb,net        # the surrogate as
 python experiments/table3_predictors.py --rows baselines      # transparent baselines
 python experiments/table3_predictors.py --rows ebm --tag ebm  # EBM rows (~40 min)
 python experiments/ale2_fidelity.py           # fidelity of pure order-2 ALE
-python experiments/timing_comparison.py       # cost against Shapley-Taylor, Faith-Shap, KernelSHAP,
-                                              # TreeSHAP(-IQ) and ALE (needs shapiq and shap)
-python experiments/figure_cost.py             # fig_coste.pdf, from results/timing_comparison.txt
+python experiments/timing_total.py            # total time to explain N instances, every method as its authors
+                                              # compute it, reference libraries (needs shapiq and shap; ~4 h on
+                                              # an idle machine, in one go: times are only comparable within a run)
+python experiments/figure_cost.py             # fig_coste.pdf, from results/timing_total.txt
 python experiments/figures_effects.py         # fig_efectos_orden1/2.pdf, fig_local_xgb.pdf
 python experiments/figure_extrapolation.py    # fig_extrapolacion.pdf
 python experiments/local_options.py           # the two ways of explaining a new point (Section "Cost")
