@@ -7,5 +7,5 @@ xgboost==3.4.1
 matplotlib==3.10.8
 torch==2.14.0            # network rows, Table 1, figures, dale_variant
 interpret-core==0.7.8    # EBM rows of Table 3 only
-shapiq==1.7.0            # timing_comparison.py only
-shap==0.52.0             # timing_comparison.py only
+shapiq==1.7.0            # timing_total.py only
+shap==0.52.0             # timing_total.py only

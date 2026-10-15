@@ -1,0 +1,15 @@
+
+== independent ==
+function                     ||r||^2  ||Pi r||^2  ||Pi r - A||^2   gain   direct  identity
+pure order 2                  0.0000      0.0000          0.0000         -0.0000   -0.0000
+order-3 cosine                0.0446      0.0366          0.0020          0.0342    0.0344
+order-3 monomial              1.0000      0.0000          0.0068         -0.0067   -0.0068
+additive + order 3            1.0000      0.0000          0.0068         -0.0067   -0.0068
+softplus neural network       8.5410      7.2519          0.0685          7.1863    7.1834
+step function                 1.1601      0.5592          0.0465          0.5089    0.5107
+
+== correlated (rho = 0.7 pairwise) ==
+function                     ||r||^2  ||Pi r||^2  ||Pi r - A||^2   gain   direct  identity
+order-3 monomial              6.6840      6.6293          0.0391          6.5424    6.5438
+additive + order 3            6.6840      6.6293          0.0391          6.5424    6.5438
+additive + order 2            0.0000      0.0000          0.0000         -0.0000   -0.0000

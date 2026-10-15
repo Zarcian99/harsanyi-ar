@@ -165,6 +165,7 @@ class _SurrogateBase:
         order2     : {(i, j): (N,)}  d_ij + AR_ij
         shapley    : (N, d)  phi_j = order1_j + 1/2 sum_{l != j} order2_jl, eq. (shapley)
         prediction : (N,)    intercept + sum_j phi_j
+        residual   : (N,)    f(x) - prediction, what the surrogate leaves unexplained at x
         """
         f0, c1, c2, pairs = self.components(X)
         shap = c1.copy()
@@ -175,9 +176,10 @@ class _SurrogateBase:
         pred = sum_terms([np.full(c1.shape[0], intercept)]
                          + [c1[:, i] for i in range(c1.shape[1])]
                          + [c2[:, p] for p in range(c2.shape[1])])
+        residual = self._predict_model(np.asarray(X, float)) - pred
         return {"intercept": intercept, "f0": f0, "kappa": self.kappa,
                 "order1": c1, "order2": {pairs[p]: c2[:, p] for p in range(len(pairs))},
-                "shapley": shap, "prediction": pred}
+                "shapley": shap, "prediction": pred, "residual": residual}
 
     # ---------------------------------------------------------- global effects
     def effect_1d(self, j: int, grid: np.ndarray):

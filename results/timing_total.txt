@@ -1,133 +1,133 @@
-machine: AMD Ryzen AI 7 350 w/ Radeon 860M; Linux-7.0.0-34-generic-x86_64-with-glibc2.39; python 3.12.3
-total time on one CPU core, measured; N instances cycle through 200 test instances; one warm-up call per method
+machine: AMD Ryzen 9 5900X 12-Core Processor; Windows-11-10.0.26200-SP0; python 3.12.10
+total time on one CPU core (all thread pools set to 1), measured; N instances cycle through 200 test instances; one warm-up call per method
 
 == A. California, XGBoost (d = 8; budget 2064 evaluations; permutation sampling: 2 permutations, 256 evaluations) ==
 method                                                 N      seconds   status
-surrogate model (fit, then explanations)               1        0.560   measured, fit 0.56 s
-surrogate model (fit, then explanations)              10        0.563   measured, fit 0.56 s
-surrogate model (fit, then explanations)             100        0.562   measured, fit 0.56 s
-surrogate model (fit, then explanations)            1000        0.572   measured, fit 0.56 s
-surrogate model (fit, then explanations)           10000        0.652   measured, fit 0.56 s
-surrogate model (fit, then explanations)          100000        1.377   measured, fit 0.56 s
-ALE, order <= 2 (fit, then readings)                   1        0.157   measured, fit 0.16 s
-ALE, order <= 2 (fit, then readings)                  10        0.158   measured, fit 0.16 s
-ALE, order <= 2 (fit, then readings)                 100        0.159   measured, fit 0.16 s
-ALE, order <= 2 (fit, then readings)                1000        0.159   measured, fit 0.16 s
-ALE, order <= 2 (fit, then readings)               10000        0.168   measured, fit 0.16 s
-ALE, order <= 2 (fit, then readings)              100000        0.278   measured, fit 0.16 s
-Shapley-Taylor, computed exactly                       1        0.006   measured
-Shapley-Taylor, computed exactly                      10        0.097   measured
-Shapley-Taylor, computed exactly                     100        1.310   measured
-Shapley-Taylor, computed exactly                    1000       11.853   measured
-Shapley-Taylor, computed exactly                   10000      133.057   measured
-Shapley-Taylor, computed exactly                  100000           --   not run (would exceed 1200 s)
-Faith-Shap, computed exactly                           1        0.019   measured
-Faith-Shap, computed exactly                          10        0.208   measured
-Faith-Shap, computed exactly                         100        1.979   measured
-Faith-Shap, computed exactly                        1000       19.859   measured
-Faith-Shap, computed exactly                       10000      199.058   measured
-Faith-Shap, computed exactly                      100000     2011.802   measured
+surrogate model (fit, then explanations)               1        2.563   measured, fit 2.56 s
+surrogate model (fit, then explanations)              10        2.563   measured, fit 2.56 s
+surrogate model (fit, then explanations)             100        2.568   measured, fit 2.56 s
+surrogate model (fit, then explanations)            1000        2.619   measured, fit 2.56 s
+surrogate model (fit, then explanations)           10000        3.132   measured, fit 2.56 s
+surrogate model (fit, then explanations)          100000        8.343   measured, fit 2.56 s
+ALE, order <= 2 (fit, then readings)                   1        0.864   measured, fit 0.86 s
+ALE, order <= 2 (fit, then readings)                  10        0.864   measured, fit 0.86 s
+ALE, order <= 2 (fit, then readings)                 100        0.865   measured, fit 0.86 s
+ALE, order <= 2 (fit, then readings)                1000        0.867   measured, fit 0.86 s
+ALE, order <= 2 (fit, then readings)               10000        0.888   measured, fit 0.86 s
+ALE, order <= 2 (fit, then readings)              100000        1.118   measured, fit 0.86 s
+Shapley-Taylor, computed exactly                       1        0.007   measured
+Shapley-Taylor, computed exactly                      10        0.072   measured
+Shapley-Taylor, computed exactly                     100        0.722   measured
+Shapley-Taylor, computed exactly                    1000        7.249   measured
+Shapley-Taylor, computed exactly                   10000       72.195   measured
+Shapley-Taylor, computed exactly                  100000      752.278   measured
+Faith-Shap, computed exactly                           1        0.003   measured
+Faith-Shap, computed exactly                          10        0.026   measured
+Faith-Shap, computed exactly                         100        0.261   measured
+Faith-Shap, computed exactly                        1000        2.611   measured
+Faith-Shap, computed exactly                       10000       27.215   measured
+Faith-Shap, computed exactly                      100000      262.952   measured
 Shapley-Taylor, permutation sampling                 all           --   budget >= 2^d: the estimator is the exact index
 Faith-Shap, sampled weighted regression              all           --   budget >= 2^d: the estimator is the exact index
-KernelSHAP                                             1        0.056   measured
-KernelSHAP                                            10        0.060   measured
-KernelSHAP                                           100        0.469   measured
-KernelSHAP                                          1000        3.881   measured
-KernelSHAP                                         10000       36.890   measured
-KernelSHAP                                        100000      378.955   measured
+KernelSHAP                                             1        0.005   measured
+KernelSHAP                                            10        0.043   measured
+KernelSHAP                                           100        0.420   measured
+KernelSHAP                                          1000        4.212   measured
+KernelSHAP                                         10000       42.916   measured
+KernelSHAP                                        100000      427.616   measured
 TreeSHAP-IQ, Shapley-Taylor                            1        0.000   measured
-TreeSHAP-IQ, Shapley-Taylor                           10        0.001   measured
-TreeSHAP-IQ, Shapley-Taylor                          100        0.011   measured
-TreeSHAP-IQ, Shapley-Taylor                         1000        0.119   measured
-TreeSHAP-IQ, Shapley-Taylor                        10000        1.184   measured
-TreeSHAP-IQ, Shapley-Taylor                       100000       11.816   measured
+TreeSHAP-IQ, Shapley-Taylor                           10        0.002   measured
+TreeSHAP-IQ, Shapley-Taylor                          100        0.022   measured
+TreeSHAP-IQ, Shapley-Taylor                         1000        0.228   measured
+TreeSHAP-IQ, Shapley-Taylor                        10000        2.254   measured
+TreeSHAP-IQ, Shapley-Taylor                       100000       22.515   measured
 
 == B. synthetic, XGBoost, d = 20 (d = 20; budget 2088 evaluations; permutation sampling: 2 permutations, 1600 evaluations) ==
 method                                                 N      seconds   status
-surrogate model (fit, then explanations)               1        3.492   measured, fit 3.49 s
-surrogate model (fit, then explanations)              10        3.496   measured, fit 3.49 s
-surrogate model (fit, then explanations)             100        3.499   measured, fit 3.49 s
-surrogate model (fit, then explanations)            1000        3.571   measured, fit 3.49 s
-surrogate model (fit, then explanations)           10000        4.162   measured, fit 3.49 s
-surrogate model (fit, then explanations)          100000       10.191   measured, fit 3.49 s
-ALE, order <= 2 (fit, then readings)                   1        1.325   measured, fit 1.32 s
-ALE, order <= 2 (fit, then readings)                  10        1.325   measured, fit 1.32 s
-ALE, order <= 2 (fit, then readings)                 100        1.326   measured, fit 1.32 s
-ALE, order <= 2 (fit, then readings)                1000        1.333   measured, fit 1.32 s
-ALE, order <= 2 (fit, then readings)               10000        1.397   measured, fit 1.32 s
-ALE, order <= 2 (fit, then readings)              100000        2.149   measured, fit 1.32 s
-Shapley-Taylor, computed exactly                       1      115.770   measured
-Shapley-Taylor, computed exactly                      10     1135.177   measured
-Shapley-Taylor, computed exactly                     100           --   not run (would exceed 1200 s)
-Shapley-Taylor, computed exactly                    1000           --   not run (would exceed 1200 s)
-Shapley-Taylor, computed exactly                   10000           --   not run (would exceed 1200 s)
-Shapley-Taylor, computed exactly                  100000           --   not run (would exceed 1200 s)
+surrogate model (fit, then explanations)               1       17.958   measured, fit 17.95 s
+surrogate model (fit, then explanations)              10       17.961   measured, fit 17.95 s
+surrogate model (fit, then explanations)             100       17.995   measured, fit 17.95 s
+surrogate model (fit, then explanations)            1000       18.334   measured, fit 17.95 s
+surrogate model (fit, then explanations)           10000       21.877   measured, fit 17.95 s
+surrogate model (fit, then explanations)          100000       57.143   measured, fit 17.95 s
+ALE, order <= 2 (fit, then readings)                   1        5.837   measured, fit 5.83 s
+ALE, order <= 2 (fit, then readings)                  10        5.837   measured, fit 5.83 s
+ALE, order <= 2 (fit, then readings)                 100        5.839   measured, fit 5.83 s
+ALE, order <= 2 (fit, then readings)                1000        5.855   measured, fit 5.83 s
+ALE, order <= 2 (fit, then readings)               10000        6.002   measured, fit 5.83 s
+ALE, order <= 2 (fit, then readings)              100000        7.549   measured, fit 5.83 s
+Shapley-Taylor, computed exactly                       1      178.706   measured
+Shapley-Taylor, computed exactly                      10     1789.225   measured
+Shapley-Taylor, computed exactly                     100           --   not run (would exceed 3600 s)
+Shapley-Taylor, computed exactly                    1000           --   not run (would exceed 3600 s)
+Shapley-Taylor, computed exactly                   10000           --   not run (would exceed 3600 s)
+Shapley-Taylor, computed exactly                  100000           --   not run (would exceed 3600 s)
 Faith-Shap, computed exactly                         all           --   not feasible (2^d x 2^d weight matrix)
-Shapley-Taylor, permutation sampling                   1        0.006   measured
-Shapley-Taylor, permutation sampling                  10        0.062   measured
-Shapley-Taylor, permutation sampling                 100        0.730   measured
-Shapley-Taylor, permutation sampling                1000        8.255   measured
-Shapley-Taylor, permutation sampling               10000       79.453   measured
-Shapley-Taylor, permutation sampling              100000      787.667   measured
-Faith-Shap, sampled weighted regression                1        0.083   measured
-Faith-Shap, sampled weighted regression               10        0.839   measured
-Faith-Shap, sampled weighted regression              100        8.445   measured
-Faith-Shap, sampled weighted regression             1000       77.972   measured
-Faith-Shap, sampled weighted regression            10000      808.461   measured
+Shapley-Taylor, permutation sampling                   1        0.009   measured
+Shapley-Taylor, permutation sampling                  10        0.097   measured
+Shapley-Taylor, permutation sampling                 100        0.962   measured
+Shapley-Taylor, permutation sampling                1000        9.614   measured
+Shapley-Taylor, permutation sampling               10000       96.794   measured
+Shapley-Taylor, permutation sampling              100000      976.047   measured
+Faith-Shap, sampled weighted regression                1        0.076   measured
+Faith-Shap, sampled weighted regression               10        0.762   measured
+Faith-Shap, sampled weighted regression              100        7.527   measured
+Faith-Shap, sampled weighted regression             1000       75.677   measured
+Faith-Shap, sampled weighted regression            10000      760.866   measured
 Faith-Shap, sampled weighted regression           100000           --   not run (would exceed 3600 s)
-KernelSHAP                                             1        0.046   measured
-KernelSHAP                                            10        0.146   measured
-KernelSHAP                                           100        1.552   measured
-KernelSHAP                                          1000       16.629   measured
-KernelSHAP                                         10000      158.853   measured
-KernelSHAP                                        100000     1643.048   measured
+KernelSHAP                                             1        0.029   measured
+KernelSHAP                                            10        0.286   measured
+KernelSHAP                                           100        2.764   measured
+KernelSHAP                                          1000       27.690   measured
+KernelSHAP                                         10000      277.597   measured
+KernelSHAP                                        100000     2763.894   measured
 TreeSHAP-IQ, Shapley-Taylor                            1        0.000   measured
-TreeSHAP-IQ, Shapley-Taylor                           10        0.001   measured
-TreeSHAP-IQ, Shapley-Taylor                          100        0.014   measured
-TreeSHAP-IQ, Shapley-Taylor                         1000        0.195   measured
-TreeSHAP-IQ, Shapley-Taylor                        10000        1.586   measured
-TreeSHAP-IQ, Shapley-Taylor                       100000       15.379   measured
+TreeSHAP-IQ, Shapley-Taylor                           10        0.002   measured
+TreeSHAP-IQ, Shapley-Taylor                          100        0.022   measured
+TreeSHAP-IQ, Shapley-Taylor                         1000        0.219   measured
+TreeSHAP-IQ, Shapley-Taylor                        10000        2.174   measured
+TreeSHAP-IQ, Shapley-Taylor                       100000       21.805   measured
 relative squared error at the budget, over             2   instances:
-  Shapley-Taylor, permutation sampling                          0.008   mean relative squared error
+  Shapley-Taylor, permutation sampling                          0.070   mean relative squared error
   Faith-Shap, sampled weighted regression             --           --   exact value not available
 
 == B. synthetic, XGBoost, d = 50 (d = 50; budget 2148 evaluations; permutation sampling: 2 permutations, 10000 evaluations) ==
 method                                                 N      seconds   status
-surrogate model (fit, then explanations)               1       24.750   measured, fit 24.71 s
-surrogate model (fit, then explanations)              10       24.780   measured, fit 24.71 s
-surrogate model (fit, then explanations)             100       24.815   measured, fit 24.71 s
-surrogate model (fit, then explanations)            1000       25.215   measured, fit 24.71 s
-surrogate model (fit, then explanations)           10000       29.288   measured, fit 24.71 s
-surrogate model (fit, then explanations)          100000       71.811   measured, fit 24.71 s
-ALE, order <= 2 (fit, then readings)                   1        8.308   measured, fit 8.28 s
-ALE, order <= 2 (fit, then readings)                  10        8.310   measured, fit 8.28 s
-ALE, order <= 2 (fit, then readings)                 100        8.316   measured, fit 8.28 s
-ALE, order <= 2 (fit, then readings)                1000        8.362   measured, fit 8.28 s
-ALE, order <= 2 (fit, then readings)               10000        8.772   measured, fit 8.28 s
-ALE, order <= 2 (fit, then readings)              100000       13.456   measured, fit 8.28 s
+surrogate model (fit, then explanations)               1      130.581   measured, fit 130.51 s
+surrogate model (fit, then explanations)              10      130.606   measured, fit 130.51 s
+surrogate model (fit, then explanations)             100      130.842   measured, fit 130.51 s
+surrogate model (fit, then explanations)            1000      133.467   measured, fit 130.51 s
+surrogate model (fit, then explanations)           10000      158.643   measured, fit 130.51 s
+surrogate model (fit, then explanations)          100000      406.261   measured, fit 130.51 s
+ALE, order <= 2 (fit, then readings)                   1       41.959   measured, fit 41.90 s
+ALE, order <= 2 (fit, then readings)                  10       41.962   measured, fit 41.90 s
+ALE, order <= 2 (fit, then readings)                 100       41.972   measured, fit 41.90 s
+ALE, order <= 2 (fit, then readings)                1000       42.079   measured, fit 41.90 s
+ALE, order <= 2 (fit, then readings)               10000       43.061   measured, fit 41.90 s
+ALE, order <= 2 (fit, then readings)              100000       53.439   measured, fit 41.90 s
 Shapley-Taylor, computed exactly                     all           --   not feasible (2^d evaluations per instance)
 Faith-Shap, computed exactly                         all           --   not feasible (2^d x 2^d weight matrix)
-Shapley-Taylor, permutation sampling                   1        0.034   measured
-Shapley-Taylor, permutation sampling                  10        0.342   measured
-Shapley-Taylor, permutation sampling                 100        3.510   measured
-Shapley-Taylor, permutation sampling                1000       38.515   measured
-Shapley-Taylor, permutation sampling               10000      361.349   measured
+Shapley-Taylor, permutation sampling                   1        0.119   measured
+Shapley-Taylor, permutation sampling                  10        0.722   measured
+Shapley-Taylor, permutation sampling                 100        6.717   measured
+Shapley-Taylor, permutation sampling                1000       65.815   measured
+Shapley-Taylor, permutation sampling               10000      654.535   measured
 Shapley-Taylor, permutation sampling              100000           --   not run (would exceed 3600 s)
-Faith-Shap, sampled weighted regression                1        0.216   measured
-Faith-Shap, sampled weighted regression               10        2.167   measured
-Faith-Shap, sampled weighted regression              100       20.968   measured
-Faith-Shap, sampled weighted regression             1000      211.965   measured
-Faith-Shap, sampled weighted regression            10000     2252.753   measured
+Faith-Shap, sampled weighted regression                1        0.348   measured
+Faith-Shap, sampled weighted regression               10        3.360   measured
+Faith-Shap, sampled weighted regression              100       33.462   measured
+Faith-Shap, sampled weighted regression             1000      336.793   measured
+Faith-Shap, sampled weighted regression            10000     3373.458   measured
 Faith-Shap, sampled weighted regression           100000           --   not run (would exceed 3600 s)
-KernelSHAP                                             1        0.066   measured
-KernelSHAP                                            10        0.195   measured
-KernelSHAP                                           100        2.318   measured
-KernelSHAP                                          1000       22.134   measured
-KernelSHAP                                         10000      200.408   measured
-KernelSHAP                                        100000     1926.703   measured
+KernelSHAP                                             1        0.034   measured
+KernelSHAP                                            10        0.343   measured
+KernelSHAP                                           100        3.418   measured
+KernelSHAP                                          1000       38.017   measured
+KernelSHAP                                         10000      353.631   measured
+KernelSHAP                                        100000     3492.284   measured
 TreeSHAP-IQ, Shapley-Taylor                            1        0.000   measured
-TreeSHAP-IQ, Shapley-Taylor                           10        0.001   measured
-TreeSHAP-IQ, Shapley-Taylor                          100        0.014   measured
-TreeSHAP-IQ, Shapley-Taylor                         1000        0.200   measured
-TreeSHAP-IQ, Shapley-Taylor                        10000        1.621   measured
-TreeSHAP-IQ, Shapley-Taylor                       100000       15.686   measured
+TreeSHAP-IQ, Shapley-Taylor                           10        0.002   measured
+TreeSHAP-IQ, Shapley-Taylor                          100        0.023   measured
+TreeSHAP-IQ, Shapley-Taylor                         1000        0.227   measured
+TreeSHAP-IQ, Shapley-Taylor                        10000        2.240   measured
+TreeSHAP-IQ, Shapley-Taylor                       100000       22.586   measured

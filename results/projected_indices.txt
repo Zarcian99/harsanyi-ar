@@ -1,0 +1,21 @@
+seeds = [0, 1, 2, 3, 4]; California; fidelity = R^2 to the model on the test set
+
+model             dividends              ALE   Shapley-Taylor       Faith-Shap        surrogate
+                                                    projected        projected                 
+  xgb seed 0: div 0.9579  ale 0.9614  st 0.9850  fs 0.9885  sur 0.9885
+  xgb seed 1: div 0.9564  ale 0.9585  st 0.9835  fs 0.9870  sur 0.9867
+  xgb seed 2: div 0.9631  ale 0.9555  st 0.9859  fs 0.9887  sur 0.9897
+  xgb seed 3: div 0.9630  ale 0.9570  st 0.9865  fs 0.9891  sur 0.9881
+  xgb seed 4: div 0.9480  ale 0.9629  st 0.9849  fs 0.9884  sur 0.9886
+XGBoost      0.958 +- 0.006   0.959 +- 0.003   0.985 +- 0.001   0.988 +- 0.001   0.988 +- 0.001
+  net seed 0: div 0.8871  ale 0.9178  st 0.9718  fs 0.9778  sur 0.9858
+  net seed 1: div 0.8667  ale 0.8981  st 0.9690  fs 0.9752  sur 0.9806
+  net seed 2: div 0.8809  ale 0.9818  st 0.9745  fs 0.9808  sur 0.9878
+  net seed 3: div 0.9013  ale 0.9577  st 0.9767  fs 0.9821  sur 0.9890
+  net seed 4: div 0.8530  ale 0.9607  st 0.9686  fs 0.9752  sur 0.9859
+network      0.878 +- 0.017   0.943 +- 0.031   0.972 +- 0.003   0.978 +- 0.003   0.986 +- 0.003
+
+cancer, XGBoost          0.991 +- 0.002   0.974 +- 0.001   0.998 +- 0.000   0.999 +- 0.000   0.996 +- 0.001
+cancer, network          0.992 +- 0.004   0.996 +- 0.001   0.997 +- 0.002   0.998 +- 0.001   1.000 +- 0.000
+wine, XGBoost            1.000 +- 0.000   0.979 +- 0.002   1.000 +- 0.000   1.000 +- 0.000   1.000 +- 0.000
+wine, network            0.998 +- 0.000   0.997 +- 0.000   0.999 +- 0.000   1.000 +- 0.000   1.000 +- 0.000

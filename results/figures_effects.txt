@@ -2,6 +2,7 @@ network R2 = 0.748   fidelity = 0.986
 XGBoost R2 = 0.827   fidelity = 0.989
 
 Local attribution, row 15683 of california.csv
+  model prediction f(x) = 4.853   surrogate = 4.790   residual h = +0.063   |h| at the 52th percentile of the test set
   f(0) = 1.133   kappa = +0.0625   intercept = 1.196
   surrogate prediction = 4.790   XGBoost prediction = 4.853   sum of contributions = +3.594
   Longitude   order 1 = +2.427   order 2 = -0.371   Shapley = +2.056

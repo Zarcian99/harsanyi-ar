@@ -97,6 +97,11 @@ python experiments/table3_predictors.py --rows xgb,net        # the surrogate as
 python experiments/table3_predictors.py --rows baselines      # transparent baselines
 python experiments/table3_predictors.py --rows ebm --tag ebm  # EBM rows (~40 min)
 python experiments/ale2_fidelity.py           # fidelity of pure order-2 ALE
+python experiments/projected_indices.py       # order-2 models from Shapley-Taylor and Faith-Shap, against dividends, ALE, surrogate
+python experiments/figure_projection.py       # fig_proyeccion.pdf: the projection of a Faith-Shap share
+python experiments/ebm_distilled.py           # order-2 EBM fitted to the network of each activation, against the surrogate
+                                              # (fidelity and time; needs interpret-core and torch)
+python experiments/training_time.py           # time to obtain each model of the predictors table, one thread
 python experiments/timing_total.py            # total time to explain N instances, every method as its authors
                                               # compute it, reference libraries (needs shapiq and shap; ~4 h on
                                               # an idle machine, in one go: times are only comparable within a run)
@@ -104,7 +109,6 @@ python experiments/figure_cost.py             # fig_coste.pdf, from results/timi
 python experiments/figures_effects.py         # fig_efectos_orden1/2.pdf, fig_local_xgb.pdf
 python experiments/figure_extrapolation.py    # fig_extrapolacion.pdf
 python experiments/local_options.py           # the two ways of explaining a new point (Section "Cost")
-python experiments/cost.py                    # building cost on California
 python experiments/xgb_depth_sweep.py         # tree depth vs fidelity ("Limitations")
 python experiments/route_comparison.py        # finite differences vs the derivative variant
 python experiments/shrinkage_diagnostics.py   # how much shrinkage intervenes, by fitting size
@@ -113,6 +117,35 @@ python experiments/fit_sample_check.py        # surrogate fitted on rows seen / 
 
 Every script writes its output to `results/` and is deterministic given the library
 versions of `requirements.txt`.
+
+### Where each table and figure of the paper comes from
+
+| in the paper | script | output |
+|---|---|---|
+| Reconstruction in distribution (`tab:ar`): $R^2$ columns | `table2_synthetic.py` | `results/table2_synthetic.txt` |
+| Reconstruction in distribution (`tab:ar`): squared norms | `table2_norms.py` | `results/table2_norms.txt` |
+| Shrinkage (`tab:ablacion_shrink`) and number of bins (`tab:ablacion_bins`) | `ablation.py` | `results/ablation_bins.txt` |
+| Corrections in the tails (`tab:ablacion_colas`) | `tails_check.py` | `results/tails_check.txt` (last block) |
+| Intercept (`tab:ablacion_kappa`) | `ablation_kappa.py` | `results/ablation_kappa.txt` |
+| The surrogate model as a predictor (`tab:predictores`) | `table3_predictors.py` | `results/table3_predictors_*.txt` |
+| Activations, California, with the EBM (`tab:activacion`) | `ebm_distilled.py` | `results/ebm_distilled.txt` |
+| Activations, cancer and Wine (`tab:activacion_clas`) | `table1_activations.py` | `results/table1_activations.txt` |
+| Five models of order two (`tab:ale2`) | `projected_indices.py` | `results/projected_indices.txt` |
+| Residual per instance (`tab:residuo_local`) | `local_residual.py` | `results/local_residual.txt` |
+| Cost (`fig:coste`) | `timing_total.py`, then `figure_cost.py` | `results/timing_total.txt`, `figures/fig_coste.pdf` |
+| Order-one and order-two effects, local attribution (`fig:orden1`, `fig:orden2`, `fig:local`) | `figures_effects.py` | `figures/fig_efectos_orden1.pdf`, `fig_efectos_orden2.pdf`, `fig_local_xgb.pdf`, `results/figures_effects.txt` |
+| Masked points outside the data (`fig:extrapolacion`) | `figure_extrapolation.py` | `figures/fig_extrapolacion.pdf` |
+| Projection of a Faith--Shap share (`fig:proyeccion`) | `figure_projection.py` | `figures/fig_proyeccion.pdf` |
+| Accumulation and layers on the grid (`fig:acumulacion`, `fig:capas`) | schematic diagrams, no data | `figures/fig_acumulacion.pdf`, `fig_capas.pdf` |
+
+Numbers quoted in the text: the two ways of explaining a new point (`local_options.txt`), fidelity
+on the fitting sample against the test set (`table_fidelity.txt`), the derivative variant
+(`route_comparison.txt`), empty cells by fitting size (`shrinkage_diagnostics.txt`), tree depth
+(`xgb_depth_sweep.txt`).
+
+`results/timing_total.txt` and `results/ebm_distilled.txt` were measured on an AMD Ryzen 9 5900X
+under Windows 11, with every thread pool limited to one thread; the other outputs do not depend on
+the machine.
 
 ### Protocol
 

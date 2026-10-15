@@ -35,6 +35,9 @@ reported.
     python experiments/timing_total.py [--settings A,20,50] [--tag name]
 """
 from __future__ import annotations
+import os
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "NUMEXPR_NUM_THREADS"):
+    os.environ[_v] = "1"                     # one core for every method: set before numpy is imported
 import time
 import warnings
 import numpy as np
@@ -183,11 +186,18 @@ if __name__ == "__main__":
                 cpu = line.split(":", 1)[1].strip(); break
     except OSError:
         pass
+    if platform.system() == "Windows":                    # commercial name of the processor
+        try:
+            import winreg
+            key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"HARDWARE\DESCRIPTION\System\CentralProcessor\0")
+            cpu = winreg.QueryValueEx(key, "ProcessorNameString")[0].strip()
+        except OSError:
+            pass
     out(f"machine: {cpu}; {platform.platform()}; python {platform.python_version()}")
-    out("total time on one CPU core, measured; N instances cycle through 200 test instances; one warm-up call per method")
+    out("total time on one CPU core (all thread pools set to 1), measured; N instances cycle through 200 test instances; one warm-up call per method")
     if "A" in settings:
         ca = load("california")
-        m = xgb.XGBRegressor(random_state=0, **XGB["california"]).fit(ca.Ztr, ca.ytr)
+        m = xgb.XGBRegressor(random_state=0, n_jobs=1, **XGB["california"]).fit(ca.Ztr, ca.ytr)
         pred = lambda A: m.predict(np.asarray(A, np.float32))
         run_setting(out, "A. California, XGBoost", m, pred, ca.Ztr[fit_subsample(len(ca.Ztr), NFIT, 0)], ca.Zte[:200], ca.d, methods)
     for d in [int(x) for x in settings if x != "A"]:
@@ -195,6 +205,6 @@ if __name__ == "__main__":
         X = rs.normal(size=(20_000, d))
         y = (X[:, 0] * X[:, 1] + np.sin(X[:, 2]) * X[:, 3] + 0.5 * X[:, :5].sum(1) ** 2 / 5
              + 0.3 * X[:, 1] * X[:, 2] * X[:, 3] + rs.normal(scale=0.5, size=len(X)))
-        md = xgb.XGBRegressor(random_state=0, **XGB["california"]).fit(X[:16_000], y[:16_000])
+        md = xgb.XGBRegressor(random_state=0, n_jobs=1, **XGB["california"]).fit(X[:16_000], y[:16_000])
         pd_ = lambda A, md=md: md.predict(np.asarray(A, np.float32))
         run_setting(out, f"B. synthetic, XGBoost, d = {d}", md, pd_, X[:NFIT], X[16_000:16_200], d, methods)

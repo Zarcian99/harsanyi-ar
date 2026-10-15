@@ -44,26 +44,44 @@ if __name__ == "__main__":
         f"averaged over {N_TEST} test points; true AR_1 ranges from {ar1_true(0):.3f} at 0 to {ar1_true(np.pi):.3f} at pi")
     out(f"\n{'n':>5s} {'shrink':>7s} | {'order 1: decile 1':>18s} {'deciles 3-8':>12s} {'decile 10':>10s} {'rmse':>7s} | "
         f"{'order 2: corners':>17s} {'centre':>8s} {'rmse':>7s}")
+    levels = []
     for n_fit in (200, 4000):
         for shrink in (True, False):
             e1 = {k: [] for k in ("d1", "mid", "d10", "rmse")}; e2 = {k: [] for k in ("corner", "centre", "rmse")}
+            lv = {k: [] for k in ("t1_tails", "e1_tails", "t1_centre", "e1_centre", "t2_tails", "e2_tails", "t2_centre", "e2_centre")}
             for seed in SEEDS:
-                rng = np.random.RandomState(seed)
-                Xfit, Xte = rng.normal(size=(n_fit, D)), rng.normal(size=(N_TEST, D))
+                Xfit = np.random.RandomState(seed).normal(size=(n_fit, D))
+                Xte = np.random.RandomState(10_000 + seed).normal(size=(N_TEST, D))   # same test points for every n
                 sur = HarsanyiARSurrogate(f, np.zeros(D), None, TAU2, shrink).fit(Xfit)
                 err1 = sur.ar1[0](Xte[:, 0]) - ar1_true(Xte[:, 0])
                 dec = decile(Xte[:, 0])
                 e1["d1"].append(err1[dec == 0].mean()); e1["mid"].append(err1[(dec >= 2) & (dec <= 7)].mean())
                 e1["d10"].append(err1[dec == 9].mean()); e1["rmse"].append(np.sqrt((err1 ** 2).mean()))
+                tails1, mid1 = (dec == 0) | (dec == 9), (dec >= 2) & (dec <= 7)
+                est1, tru1 = sur.ar1[0](Xte[:, 0]), ar1_true(Xte[:, 0])
+                lv["t1_tails"].append(tru1[tails1].mean()); lv["e1_tails"].append(est1[tails1].mean())
+                lv["t1_centre"].append(tru1[mid1].mean()); lv["e1_centre"].append(est1[mid1].mean())
                 err2 = sur.ar2[(0, 1)](Xte) - ar12_true(Xte[:, 0], Xte[:, 1])
                 d0, d1 = decile(Xte[:, 0]), decile(Xte[:, 1])
                 corner = ((d0 == 0) | (d0 == 9)) & ((d1 == 0) | (d1 == 9))
                 centre = (d0 >= 2) & (d0 <= 7) & (d1 >= 2) & (d1 <= 7)
                 e2["corner"].append(err2[corner].mean()); e2["centre"].append(err2[centre].mean())
                 e2["rmse"].append(np.sqrt((err2 ** 2).mean()))
+                est2, tru2 = sur.ar2[(0, 1)](Xte), ar12_true(Xte[:, 0], Xte[:, 1])
+                lv["t2_tails"].append(tru2[corner].mean()); lv["e2_tails"].append(est2[corner].mean())
+                lv["t2_centre"].append(tru2[centre].mean()); lv["e2_centre"].append(est2[centre].mean())
             m = lambda v: np.mean(v)
             out(f"{n_fit:>5d} {'on' if shrink else 'off':>7s} | {m(e1['d1']):>+18.4f} {m(e1['mid']):>+12.4f} "
                 f"{m(e1['d10']):>+10.4f} {m(e1['rmse']):>7.4f} | {m(e2['corner']):>+17.4f} {m(e2['centre']):>+8.4f} "
                 f"{m(e2['rmse']):>7.4f}")
+            levels.append((n_fit, shrink, {k: m(v) for k, v in lv.items()}))
+    out("\nMean of the true and of the estimated corrections over the test points of each region (the table of "
+        "the article; tails: outer deciles; centre: deciles 3 to 8; for AR_12, of both x1 and x2)")
+    out(f"{'n':>5s} {'shrink':>7s} | {'AR_1 tails':>10s} {'true':>7s} | {'AR_1 centre':>11s} {'true':>7s} | "
+        f"{'AR_12 tails':>11s} {'true':>7s} | {'AR_12 centre':>12s} {'true':>7s}")
+    for n_fit, shrink, L in levels:
+        out(f"{n_fit:>5d} {'on' if shrink else 'off':>7s} | {L['e1_tails']:>+10.3f} {L['t1_tails']:>+7.3f} | "
+            f"{L['e1_centre']:>+11.3f} {L['t1_centre']:>+7.3f} | {L['e2_tails']:>+11.3f} {L['t2_tails']:>+7.3f} | "
+            f"{L['e2_centre']:>+12.3f} {L['t2_centre']:>+7.3f}")
     out(f"\nreference: true AR_1 mean in decile 1 and 10 = {ar1_true(norm.ppf(0.05)):.4f}, "
         f"true AR_12 at the corners (|x| = 1.64) = {ar12_true(1.64, 1.64):.4f}, at the centre (0.5, 0.5) = {ar12_true(0.5, 0.5):.4f}")

@@ -32,14 +32,16 @@ HOUSE_ROW = 15683            # row of data/california.csv explained in the local
 BLUE, ORANGE, GREY = "#1f5fa8", "#d1622b", "0.55"
 # order 1: red / blue; order 2: purple / green (warm = positive, cool = negative)
 POS1, NEG1, POS2, NEG2 = "#c0392b", "#1f5fa8", "#8e44ad", "#1e9e6b"
+RESID = "#9a9a9a"            # the residual h(x): what the surrogate leaves unexplained
 
 
-def arrow_bar(ax, x0, x1, y, height, color, tip):
+def arrow_bar(ax, x0, x1, y, height, color, tip, hatch=None):
     """Horizontal bar from x0 to x1 ending in an arrow head that points to x1."""
     h = height / 2.0
     t = min(tip, abs(x1 - x0)) * np.sign(x1 - x0)
     pts = [(x0, y - h), (x1 - t, y - h), (x1, y), (x1 - t, y + h), (x0, y + h)]
-    ax.add_patch(Polygon(pts, closed=True, facecolor=color, edgecolor="white", linewidth=0.6))
+    ax.add_patch(Polygon(pts, closed=True, facecolor=color, edgecolor="white" if hatch is None else "0.45",
+                         linewidth=0.6, hatch=hatch))
 
 
 def main():
@@ -105,6 +107,10 @@ def main():
     o1 = e["order1"][0]
     o2 = e["shapley"][0] - o1
     intercept, pred = float(e["intercept"]), float(e["prediction"][0])
+    fx = float(predict_xgb(z)[0])                         # the model's own prediction
+    h = fx - pred                                         # residual of this instance, not explained
+    h_test = np.abs(predict_xgb(ca.Zte) - sur_xgb.predict(ca.Zte))
+    h_pct = 100.0 * np.mean(h_test <= abs(h))             # percentile of |h| in the test set
     order = np.argsort(-np.abs(e["shapley"][0]))
 
     fig, ax = plt.subplots(figsize=(11.5, 7.6))
@@ -112,6 +118,7 @@ def main():
     for j in order:
         for v in (o1[j], o2[j]):
             cum += v; ends.append(cum)
+    ends.append(fx)
     span = max(ends) - min(ends)
     tip, pad = 0.020 * span, 0.010 * span
     x_tag = max(ends) + 0.13 * span
@@ -125,26 +132,50 @@ def main():
         for kind, v in ((1, o1[j]), (2, o2[j])):
             color = (POS1 if v >= 0 else NEG1) if kind == 1 else (POS2 if v >= 0 else NEG2)
             yb = y_row + (0.72 if kind == 1 else 0.28)
-            arrow_bar(ax, cum, cum + v, yb, 0.38, color, tip)
+            if abs(v) < 0.006 * span:                    # too small to see: a thin mark of its colour
+                w = 0.006 * span
+                ax.add_patch(Polygon([(cum + v / 2 - w / 2, yb - 0.19), (cum + v / 2 + w / 2, yb - 0.19),
+                                      (cum + v / 2 + w / 2, yb + 0.19), (cum + v / 2 - w / 2, yb + 0.19)],
+                                     closed=True, facecolor=color, edgecolor="none"))
+            else:
+                arrow_bar(ax, cum, cum + v, yb, 0.38, color, tip)
+            if abs(v) < 0.01 * span:                       # too small to see as a bar: mark it
+                ax.plot([cum + v], [yb], marker="|", ms=10, mew=1.8, color=color, zorder=3)
             ax.text(cum + v + (pad if v >= 0 else -pad), yb, f"{v:+.3f}", va="center",
                     ha="left" if v >= 0 else "right", fontsize=9 if kind == 1 else 8,
                     fontweight="bold" if kind == 1 else "normal")
             ax.text(x_tag, yb, f"order {kind}", va="center", ha="left", fontsize=7,
                     color="0.5", style="italic")
             cum += v
-    for xv in (intercept, pred):
-        ax.axvline(xv, color="0.5", ls="--", lw=1, zorder=0)
+    # the residual, in its own band below the attribution: from the surrogate's prediction to the model's
+    y_sep, y_res = -0.30, -0.80
+    ax.axhspan(y_sep - 0.95, y_sep, color="0.965", zorder=0, lw=0)
+    ax.axhline(y_sep, color="0.80", lw=0.8, zorder=1)
+    lo_r, hi_r = min(pred, fx), max(pred, fx)               # the residual's span, marked only in the band
+    ax.fill_between([lo_r, hi_r], y_sep - 0.95, y_sep, color="white", lw=0, zorder=0.5)
+    ax.vlines([lo_r, hi_r], y_sep - 0.95, y_sep, colors="0.45", linestyles=":", lw=1.0, zorder=1)
+    arrow_bar(ax, pred, fx, y_res, 0.34, RESID, tip, hatch="////")
+    ax.text(max(pred, fx) + pad, y_res, f"{h:+.3f}", va="center", ha="left", fontsize=9, color="0.30")
+    ax.text(max(pred, fx) + 0.12 * span, y_res, rf"$\hat f(\mathbf{{x}})={fx:.3f}$",
+            va="center", ha="left", fontsize=9.5, color="0.20")
+    ax.text(min(pred, fx) - 3 * pad, y_res, "what the surrogate model leaves unexplained",
+            va="center", ha="right", fontsize=8.5, color="0.40", style="italic")
+    yticks.append(y_res); ylabels.append(r"residual $h^{k}(\mathbf{x})$")
+    for xv in (intercept, pred):                       # guides only over the attribution block
+        ax.vlines(xv, y_sep, n + 0.55, colors="0.5", linestyles="--", lw=1, zorder=0)
     ax.text(intercept + pad, n + 0.08, rf"$\hat f_\emptyset=\hat f(\mathbf{{0}})+\hat\kappa={intercept:.3f}$",
             ha="left", va="bottom", fontsize=9.5)
-    ax.text(pred - pad, -0.12, rf"$\tilde f^{{k}}(\mathbf{{x}})={pred:.3f}$", ha="right", va="top", fontsize=9.5)
+    ax.text(pred - pad, y_sep + 0.06, rf"$\tilde f^{{k}}(\mathbf{{x}})={pred:.3f}$", ha="right", va="bottom", fontsize=9.5)
     ax.set_yticks(yticks)
     ax.set_yticklabels(ylabels, fontsize=9.5, fontweight="bold")
+    ax.get_yticklabels()[-1].set_fontweight("normal"); ax.get_yticklabels()[-1].set_color("0.30")
     ax.set_xlim(min(ends) - 0.10 * span, x_tag + 0.10 * span)
-    ax.set_ylim(-0.6, n + 0.55)
+    ax.set_ylim(y_sep - 0.95, n + 0.55)
     ax.set_xlabel(r"prediction (\$100k)", fontsize=10)
     ax.legend(handles=[Patch(fc=POS1, label="order 1 (positive)"), Patch(fc=NEG1, label="order 1 (negative)"),
-                       Patch(fc=POS2, label="order 2 (positive)"), Patch(fc=NEG2, label="order 2 (negative)")],
-              loc="lower left", fontsize=8, frameon=True)
+                       Patch(fc=POS2, label="order 2 (positive)"), Patch(fc=NEG2, label="order 2 (negative)"),
+                       Patch(fc=RESID, ec="0.45", hatch="////", label="residual, not explained")],
+              loc="lower left", bbox_to_anchor=(0.0, 0.11), fontsize=8, frameon=True)
     for s in ("top", "right"):
         ax.spines[s].set_visible(False)
     fig.tight_layout()
@@ -152,6 +183,8 @@ def main():
     plt.close(fig)
 
     out(f"\nLocal attribution, row {HOUSE_ROW} of california.csv")
+    out(f"  model prediction f(x) = {fx:.3f}   surrogate = {pred:.3f}   residual h = {h:+.3f}"
+        f"   |h| at the {h_pct:.0f}th percentile of the test set")
     out(f"  f(0) = {e['f0']:.3f}   kappa = {e['kappa']:+.4f}   intercept = {intercept:.3f}")
     out(f"  surrogate prediction = {pred:.3f}   XGBoost prediction = {float(predict_xgb(z)[0]):.3f}"
         f"   sum of contributions = {pred - intercept:+.3f}")
