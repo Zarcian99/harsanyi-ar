@@ -1,0 +1,14 @@
+seeds = [0, 1, 2, 3, 4]; California, test split, order 2, 20 bins, no shrinkage
+(run per activation with --activations, the six outputs merged into this file)
+baselines (standardized units):
+  mean    = [0., 0., 0., 0., 0., 0., 0., 0.]
+  median  = [-0.17,  0.03, -0.08, -0.1 , -0.23, -0.03, -0.64,  0.54]
+  nearest = [-0.16,  0.03,  0.03, -0.08, -0.35, -0.07, -0.66,  0.67]
+
+activation         network R2 |           mean (0)             median   nearest instance
+softplus       0.742 +- 0.003 |     0.986 +- 0.003     0.979 +- 0.008     0.976 +- 0.010    (74 s)
+sigmoid        0.742 +- 0.003 |     0.967 +- 0.006     0.963 +- 0.008     0.965 +- 0.008    (55 s)
+tanh           0.784 +- 0.001 |     0.889 +- 0.017     0.895 +- 0.029     0.910 +- 0.029    (59 s)
+silu           0.780 +- 0.003 |     0.740 +- 0.079     0.911 +- 0.015     0.915 +- 0.018    (60 s)
+mish           0.782 +- 0.003 |     0.749 +- 0.075     0.915 +- 0.012     0.920 +- 0.009    (127 s)
+gelu           0.787 +- 0.003 |     0.690 +- 0.070     0.898 +- 0.022     0.902 +- 0.024    (81 s)

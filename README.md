@@ -130,6 +130,7 @@ versions of `requirements.txt`.
 | The surrogate model as a predictor (`tab:predictores`) | `table3_predictors.py` | `results/table3_predictors_*.txt` |
 | Activations, California, with the EBM (`tab:activacion`) | `ebm_distilled.py` | `results/ebm_distilled.txt` |
 | Activations, cancer and Wine (`tab:activacion_clas`) | `table1_activations.py` | `results/table1_activations.txt` |
+| Baseline moved to the median, California (`tab:activacion`, last column) | `baseline_sensitivity.py` | `results/baseline_sensitivity.txt` |
 | Five models of order two (`tab:ale2`) | `projected_indices.py` | `results/projected_indices.txt` |
 | Residual per instance (`tab:residuo_local`) | `local_residual.py` | `results/local_residual.txt` |
 | Cost (`fig:coste`) | `timing_total.py`, then `figure_cost.py` | `results/timing_total.txt`, `figures/fig_coste.pdf` |
