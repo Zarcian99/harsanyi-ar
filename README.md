@@ -90,6 +90,7 @@ python tests/test_pipeline.py && python tests/test_order_k.py
 python experiments/table_fidelity.py          # fidelity with and without the correction (Table 1)
 python experiments/table1_activations.py      # fidelity by activation function (~25 min, 1 CPU core)
 python experiments/table2_synthetic.py        # synthetic functions (~4 min)
+python experiments/table2_norms.py            # squared norms of the residual and its projection (Table 1)
 python experiments/ablation.py                # shrinkage x fitting size, number of bins (blocks A, C)
 python experiments/tails_check.py             # corrections in the tails, with and without shrinkage
 python experiments/ablation_kappa.py          # the intercept, synthetic functions and California
@@ -98,9 +99,12 @@ python experiments/table3_predictors.py --rows baselines      # transparent base
 python experiments/table3_predictors.py --rows ebm --tag ebm  # EBM rows (~40 min)
 python experiments/ale2_fidelity.py           # fidelity of pure order-2 ALE
 python experiments/projected_indices.py       # order-2 models from Shapley-Taylor and Faith-Shap, against dividends, ALE, surrogate
+python experiments/local_residual.py          # the residual left at each instance, in sd of the model
 python experiments/figure_projection.py       # fig_proyeccion.pdf: the projection of a Faith-Shap share
 python experiments/ebm_distilled.py           # order-2 EBM fitted to the network of each activation, against the surrogate
                                               # (fidelity and time; needs interpret-core and torch)
+python experiments/baseline_sensitivity.py    # the same networks explained with the baseline at the median (~8 min)
+python experiments/baseline_diagnostics.py    # why the median helps: data density, masked-point distances, residual norms
 python experiments/training_time.py           # time to obtain each model of the predictors table, one thread
 python experiments/timing_total.py            # total time to explain N instances, every method as its authors
                                               # compute it, reference libraries (needs shapiq and shap; ~4 h on
@@ -131,6 +135,7 @@ versions of `requirements.txt`.
 | Activations, California, with the EBM (`tab:activacion`) | `ebm_distilled.py` | `results/ebm_distilled.txt` |
 | Activations, cancer and Wine (`tab:activacion_clas`) | `table1_activations.py` | `results/table1_activations.txt` |
 | Baseline moved to the median, California (`tab:activacion`, last column) | `baseline_sensitivity.py` | `results/baseline_sensitivity.txt` |
+| Why the median baseline helps (numbers in the text of the activations section) | `baseline_diagnostics.py` | `results/baseline_diagnostics.txt` |
 | Five models of order two (`tab:ale2`) | `projected_indices.py` | `results/projected_indices.txt` |
 | Residual per instance (`tab:residuo_local`) | `local_residual.py` | `results/local_residual.txt` |
 | Cost (`fig:coste`) | `timing_total.py`, then `figure_cost.py` | `results/timing_total.txt`, `figures/fig_coste.pdf` |

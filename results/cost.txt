@@ -1,4 +1,0 @@
-training XGBoost        : 0.23 s
-building the surrogate  : 3.43 s  (4000 fitting points, 1620002 model evaluations in 372 batched calls)
-explaining one instance : 37 model evaluations (expected 1 + d + d(d-1)/2 = 37)
-surrogate prediction    : 0.082 ms per instance
